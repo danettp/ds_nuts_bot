@@ -1,10 +1,21 @@
 # D's Nuts Bot program
-
 import random
 from random import randint 
 
 #List of random names
 names = ["Jack", "Rachel", "Michelle", "Randy", "Samuel", "An", "Julie", "Jerry", "Jace", "Sofia"]
+#Customer details dictionary
+customer_details = {}
+
+# validates inputs to check if they are blank
+def not_blank(question):
+    valid =  False
+    while not valid: 
+        response = input (question)
+        if response != "": 
+            return response
+        else:
+            print("This cannot be blank.")
 
 # Welcome message with random name
 def welcome():
@@ -22,7 +33,7 @@ def welcome():
 
 
 # Menu for delivery or click and collect
-def collect_menu():
+def order_type():
     print ("Is your order for click and collect or delivery?")
 
     print("For click and collect please enter 1")
@@ -48,15 +59,22 @@ def collect_menu():
 
 
 
+# Click and collect information - name and phone number
+def click_and_collect():
+    #Basic Instructions 
+    question = ("Please enter your name ")
+    customer_details["name"] = not_blank(question)
+    print(customer_details["name"])
 
-# Delivery information - name, phone number, and address
+    question = ("Please enter your phone number ")
+    customer_details['phone'] = not_blank(question)
+    print(customer_details["phone"])
 
 
 
 
 
-
-# Delivery information - name and phone
+# Delivery information - name, phone number and address
 
 
 
@@ -110,7 +128,8 @@ def main():
     Returns: None
     '''
     welcome()
-    collect_menu()
+    click_and_collect()
+    order_type()
 
 
 main()
