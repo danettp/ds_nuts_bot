@@ -15,6 +15,10 @@ nuts_names = ["Peanuts","Pistachios", "Macadamia", "Almonds", "Cashews", "Walnut
 # list of nuts prices
 nuts_prices = [8.00, 8.00, 8.00, 9.50, 9.50, 9.50, 9.50, 15.00, 
                15.00, 15.00, 15.50, 19.00]
+#list to store ordered pizzas
+order_list = []
+#list to store pizza prices
+order_cost = []
 #Customer details dictionary
 customer_details = {}
 
@@ -108,14 +112,6 @@ def delivery_info():
 
 
 
-
-# Choose total number of items - max 5
-
-
-
-
-
-
 # Nuts Menu
 def menu():
     print("-"*60)
@@ -130,17 +126,46 @@ def menu():
 
 
 
+# Choose total number of items - max 12
+# Nuts order - from menu - print each nut ordered with cast
 
-# Item (nuts) order - from menu - print each nut ordered with cast
-
-
+def order_nuts():
+    # ask for total number of nuts
+    num_nuts = 0
+    while True:
+        try:
+            num_nuts = int(input("How many nuts do you want to order? "))
+            print(num_nuts)
+            if num_nuts >= 1 and num_nuts <= 12:
+                break
+            else:
+                print("Your order must be between 1 and 12")
+        except ValueError:
+            print("That is not a valid number")
+            print("Please enter a number between 1 and 12 ")
+    # Choose nuts from menu
+    for item in range(num_nuts):
+        while num_nuts > 0:
+            while True:
+                try:
+                    nuts_ordered = int(input("Please choose your nuts by entering the number from the menu "))
+                    if nuts_ordered >= 1 and nuts_ordered <= 12:
+                        break
+                    else:
+                        print("Your nuts order must be between 1 and 12")
+                except ValueError:
+                    print("That is not a valid number")
+                    print("Please enter a number between 1 and 12")  
+            nuts_ordered = nuts_ordered-1
+            order_list.append(nuts_names[nuts_ordered])
+            order_cost.append(nuts_prices[nuts_ordered])
+            print("{} ${:.2f}" .format(nuts_names[nuts_ordered],nuts_prices[nuts_ordered]))
+            num_nuts = num_nuts-1
 
 
 
 # Print order out - including if the order is delivery or click and collect and names 
 # and price of each nut - total cost including any delivery charge
-
-
 
 
 # Ability to cancel or proceed with order
@@ -167,6 +192,7 @@ def main():
     welcome()
     order_type()
     menu()
+    order_nuts()
 
 
 main()
