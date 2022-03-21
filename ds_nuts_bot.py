@@ -28,7 +28,7 @@ def welcome():
     num = randint(0,9)
     name = (names[num])
     print("*** Welcome to D's Nuts ***")
-    print("*** My name is", name, " ***")
+    print("*** My name is {} ***".format(name))
     print("*** I will be here to help you order your delicious organic nuts ***")
 
 
@@ -69,6 +69,7 @@ def click_and_collect():
     question = ("Please enter your phone number ")
     customer_details['phone'] = not_blank(question)
     print(customer_details["phone"])
+    
 
 
 
