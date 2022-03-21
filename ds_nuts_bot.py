@@ -1,4 +1,9 @@
 # D's Nuts Bot program
+# (21/03/22)
+# Bugs - Phone number input allows letters
+#      - name input allows numbers
+
+
 import random
 from random import randint 
 
