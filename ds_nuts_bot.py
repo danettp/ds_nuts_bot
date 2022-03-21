@@ -18,7 +18,7 @@ def not_blank(question):
     while not valid: 
         response = input (question)
         if response != "": 
-            return response
+            return response.title()
         else:
             print("This cannot be blank.")
 
@@ -45,22 +45,18 @@ def order_type():
     print("For delivery please enter 2")
 
     while True:
-        try: 
             delivery = int(input("Please enter a number "))
             if delivery >= 1 and delivery <= 2:
                 if delivery == 1:
                     print("Click and Collect")
-                    break
-                
+                    click_and_collect()
+                    break   
                 elif delivery == 2:
                     print("Delivery")
+                    delivery_info()
                     break
             else: 
                 print("The number must be 1 or 2")
-        except ValueError:
-            print("That is not a valid number.")
-            print("Please enter 1 or 2")
-
 
 
 
@@ -74,13 +70,34 @@ def click_and_collect():
     question = ("Please enter your phone number ")
     customer_details['phone'] = not_blank(question)
     print(customer_details["phone"])
-    
+    print(customer_details)
 
 
 
 
 
 # Delivery information - name, phone number and address
+def delivery_info(): 
+    question = ("Please enter your name ")
+    customer_details["name"] = not_blank(question)
+    print(customer_details["name"])
+
+    question = ("Please enter your phone number ")
+    customer_details['phone'] = not_blank(question)
+    print(customer_details["phone"])
+
+    question = ("Please enter your house number ")
+    customer_details['house'] = not_blank(question)
+    print(customer_details["house"])
+
+    question = ("Please enter your street name ")
+    customer_details['street'] = not_blank(question)
+    print(customer_details["street"])
+
+    question = ("Please enter your suburb ")
+    customer_details['suburb'] = not_blank(question)
+    print(customer_details["suburb"])
+    print(customer_details)
 
 
 
@@ -134,7 +151,6 @@ def main():
     Returns: None
     '''
     welcome()
-    click_and_collect()
     order_type()
 
 
