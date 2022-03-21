@@ -9,6 +9,12 @@ from random import randint
 
 #List of random names
 names = ["Jack", "Rachel", "Michelle", "Randy", "Samuel", "An", "Julie", "Jerry", "Jace", "Sofia"]
+# list of nuts names
+nuts_names = ["Peanuts","Pistachios", "Macadamia", "Almonds", "Cashews", "Walnuts", "Pecans", "Hazelnuts", 
+              "Brazil Nuts", "Pine Nuts", "Chestnuts", "Mixed Nuts"]
+# list of nuts prices
+nuts_prices = [8.00, 8.00, 8.00, 9.50, 9.50, 9.50, 9.50, 15.00, 
+               15.00, 15.00, 15.50, 19.00]
 #Customer details dictionary
 customer_details = {}
 
@@ -111,7 +117,15 @@ def delivery_info():
 
 
 # Nuts Menu
+def menu():
+    print("-"*60)
+    print("========= MENU ==========")
+    print("-"*60)
 
+    for count in range (len(nuts_names)):
+        print("({}) {} ${:.2f}" .format(count+1, nuts_names[count], nuts_prices[count]))
+    
+    print("-"*60)
 
 
 
@@ -152,6 +166,7 @@ def main():
     '''
     welcome()
     order_type()
+    menu()
 
 
 main()
