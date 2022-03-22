@@ -8,7 +8,7 @@ import random
 from random import randint 
 
 #List of random names
-names = ["Jack", "Rachel", "Michelle", "Randy", "Samuel", "An", "Julie", "Jerry", "Jace", "Sofia"]
+names = ["Jack", "Rachel", "Michelle", "Aaron", "Samuel", "An", "Julie", "Jerry", "Jace", "Sofia"]
 # list of nuts names
 nuts_names = ["Peanuts","Pistachios", "Macadamia", "Almonds", "Cashews", "Walnuts", "Pecans", "Hazelnuts", 
               "Brazil Nuts", "Pine Nuts", "Chestnuts", "Mixed Nuts"]
@@ -49,6 +49,7 @@ def welcome():
 
 # Menu for delivery or click and collect
 def order_type():
+    del_collect = ""
     print ("Is your order for click and collect or delivery?")
 
     print("For click and collect please enter 1")
@@ -60,13 +61,18 @@ def order_type():
                 if delivery == 1:
                     print("Click and Collect")
                     click_and_collect()
+                    del_collect = "click and collect"
                     break   
                 elif delivery == 2:
                     print("Delivery")
                     delivery_info()
+                    del_collect = "delivery"
                     break
             else: 
                 print("The number must be 1 or 2")
+    return del_collect
+
+    
 
 
 
@@ -166,7 +172,26 @@ def order_nuts():
 
 # Print order out - including if the order is delivery or click and collect and names 
 # and price of each nut - total cost including any delivery charge
-
+def print_order(del_collect):
+    print()
+    total_cost = sum(order_cost)
+    print("Customer Details")
+    if del_collect == "click and collect":
+        print("Your order is for Click and Collect")
+        print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
+    elif del_collect == "delivery":
+        print("Your order is for Delivery")
+        print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}" 
+              f"\nCustomer Address: {customer_details['house']} {customer_details['street']} {customer_details['suburb']}")
+    print()
+    print("Order Details")
+    count = 0
+    for item in order_list:
+        print("Ordered: {} Cost ${:.2f}".format(item, order_cost[count]))
+        count = count+1 
+    print()
+    print("Total Order Cost")
+    print(f"${total_cost:.2f}")
 
 # Ability to cancel or proceed with order
 
@@ -190,9 +215,11 @@ def main():
     Returns: None
     '''
     welcome()
-    order_type()
+    del_collect = order_type()
+    print(del_collect)
     menu()
     order_nuts()
+    print_order(del_collect)
 
 
 main()
