@@ -52,8 +52,8 @@ def order_type():
     del_collect = ""
     print ("Is your order for click and collect or delivery?")
 
-    print("For click and collect please enter 1")
-    print("For delivery please enter 2")
+    print("(1) Click and Collect")
+    print("(2) Delivery")
 
     while True:
             delivery = int(input("Please enter a number "))
@@ -140,7 +140,7 @@ def order_nuts():
     num_nuts = 0
     while True:
         try:
-            num_nuts = int(input("How many nuts do you want to order? "))
+            num_nuts = int(input("How many nuts do you want to order? (1-12) "))
             print(num_nuts)
             if num_nuts >= 1 and num_nuts <= 12:
                 break
@@ -180,7 +180,6 @@ def print_order(del_collect):
         print("Your order is for Click and Collect")
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
     elif del_collect == "delivery":
-        print("Your order is for Delivery")
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}" 
               f"\nCustomer Address: {customer_details['house']} {customer_details['street']} {customer_details['suburb']}")
     print()
