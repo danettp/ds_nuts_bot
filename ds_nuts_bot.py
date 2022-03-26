@@ -83,8 +83,6 @@ def order_type():
 
     
 
-
-
 # Click and collect information - name and phone number
 def click_and_collect():
     #Basic Instructions 
@@ -96,9 +94,6 @@ def click_and_collect():
     customer_details['phone'] = not_blank(question)
     print(customer_details["phone"])
     print(customer_details)
-
-
-
 
 
 # Delivery information - name, phone number and address
@@ -175,22 +170,24 @@ def print_order(del_collect):
     print()
     total_cost = sum(order_cost)
     print("Customer Details")
-    if del_collect == "click and collect":
+    if del_collect == "Click and Collect":
         print("Your order is for Click and Collect")
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
-    elif del_collect == "delivery":
-        print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}" 
-              f"\nCustomer Address: {customer_details['house']} {customer_details['street']} {customer_details['suburb']}")
+    elif del_collect == "Delivery":
+        print("Your order is for Delivery")
+        print(f"Customer Name: {customer_details['name']}"
+        f"\nCustomer Phone: {customer_details['phone']}"
+        f"\nCustomer Address: {customer_details['house']} {customer_details['street']} {customer_details['suburb']}")
     print()
     print("Your Order Details")
     count = 0
     for item in order_list:
         print("Ordered: {} Cost ${:.2f}".format(item, order_cost[count]))
-        count = count+1 
+        count = count+1
     print()
     print("Total Order Cost")
     print(f"${total_cost:.2f}")
-    print("")
+
 
 # Ability to cancel or proceed with order
 def confirm_cancel():
