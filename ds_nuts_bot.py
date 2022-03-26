@@ -200,17 +200,21 @@ def order_nuts():
 def print_order(del_collect):
     print()
     total_cost = sum(order_cost)
-    print("Customer Details")
+    print("-"*60)
+    print("Customer Details:")
+    print("-"*60)
     if del_collect == "Click and Collect":
         print("Your order is for Click and Collect")
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
+        print("-"*60)
     elif del_collect == "Delivery":
         print("Your order is for Delivery")
         print(f"Customer Name: {customer_details['name']}"
         f"\nCustomer Phone: {customer_details['phone']}"
         f"\nCustomer Address: {customer_details['house']} {customer_details['street']} {customer_details['suburb']}")
-    print()
-    print("Your Order Details")
+        print("-"*60)
+    print("Your Order Details:")
+    print("-"*60)
     count = 0
     for item in order_list:
         print("Ordered: {} Cost ${:.2f}".format(item, order_cost[count]))
@@ -225,6 +229,7 @@ def confirm_cancel():
     LOW = 1
     HIGH = 2
     question = (f"Enter a number between {LOW} and {HIGH} ")
+    print("-"*60)
     print ("Please confirm your order - Choose: ")
     print("(1) To Confirm")
     print("(2) To Cancel")
@@ -232,12 +237,16 @@ def confirm_cancel():
 
     confirm = val_int(LOW, HIGH, question)
     if confirm == 1:
+        print("-"*60)
         print("Order Confirmed")
-        print("Your order has been sent to our kitchen")
-        print("Your delicious nuts will be with you shortly")
+        print("Your order is getting picked and packed.")
+        print("Your delicious nuts will be with you shortly.")
+        print("-"*60)
         new_exit()
     elif confirm == 2:
+        print("-"*60)
         print("Your Order has been Cancelled")
+        print("-"*60)
         print("You can restart your order or exit the BOT")
         new_exit()
 
