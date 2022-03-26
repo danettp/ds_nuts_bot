@@ -33,6 +33,17 @@ def not_blank(question):
         else:
             print("This cannot be blank.")
 
+# validates inputs to check if they are string
+def valid_string(question):
+    #Asks a question and makes sure that the answer is alphabetical. Returns the string.
+    while True:
+        response = input(question)
+        x = response.isalpha()
+        if x == False:
+            print("Input must only contain letters.")
+        else:
+            return response.title()
+
 # validates inputs to check if they are an integer
 def val_int(low, high, question):
     while True:
@@ -87,7 +98,7 @@ def order_type():
 def click_and_collect():
     #Basic Instructions 
     question = ("Please enter your name ")
-    customer_details["name"] = not_blank(question)
+    customer_details["name"] = valid_string(question)
     print(customer_details["name"])
 
     question = ("Please enter your phone number ")
@@ -99,7 +110,7 @@ def click_and_collect():
 # Delivery information - name, phone number and address
 def delivery_info(): 
     question = ("Please enter your name ")
-    customer_details["name"] = not_blank(question)
+    customer_details["name"] = valid_string(question)
     print(customer_details["name"])
 
     question = ("Please enter your phone number ")
@@ -111,11 +122,11 @@ def delivery_info():
     print(customer_details["house"])
 
     question = ("Please enter your street name ")
-    customer_details['street'] = not_blank(question)
+    customer_details['street'] = valid_string(question)
     print(customer_details["street"])
 
     question = ("Please enter your suburb ")
-    customer_details['suburb'] = not_blank(question)
+    customer_details['suburb'] = valid_string(question)
     print(customer_details["suburb"])
     print(customer_details)
 

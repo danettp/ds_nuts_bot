@@ -1,4 +1,4 @@
-def check_string(question):
+def valid_string(question):
     #Asks a question and makes sure that the answer is alphabetical. Returns the string.
     while True:
         response = input(question)
@@ -10,5 +10,6 @@ def check_string(question):
 
 
 question = "Please enter your name "
-name = check_string(question)
+name = valid_string(question)
 print(name)
+
