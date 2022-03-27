@@ -199,7 +199,7 @@ def order_nuts():
 # and price of each nut - total cost including any delivery charge
 def print_order(del_collect):
     print()
-    total_cost = sum(order_cost)
+    
     print("-"*60)
     print("Customer Details:")
     print("-"*60)
@@ -208,6 +208,12 @@ def print_order(del_collect):
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
         print("-"*60)
     elif del_collect == "Delivery":
+
+        # Handle delivery
+        if len(order_list) < 5:
+            print("An extra $9.00 will be added for delivery.")
+            order_cost.append(9)
+
         print("Your order is for Delivery")
         print(f"Customer Name: {customer_details['name']}"
         f"\nCustomer Phone: {customer_details['phone']}"
@@ -220,6 +226,10 @@ def print_order(del_collect):
         print("Ordered: {} Cost ${:.2f}".format(item, order_cost[count]))
         count = count+1
     print()
+
+    # Calc Total Cost
+    total_cost = sum(order_cost)
+    # Print Total Cost
     print("Total Order Cost")
     print(f"${total_cost:.2f}")
 
