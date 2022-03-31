@@ -1,83 +1,50 @@
 # D's Nuts Bot program
-# (21/03/22)
-# Bugs - Phone number input allows letters
-#      - name input allows numbers
 
-
+# Libraries
 import sys
 import random
 from random import randint 
+#My Libraries
+from validations import * #Import Validation functions
 #Constants
 LOW = 1
 HIGH = 2
 PH_LOW = 7
 PH_HIGH = 10
 
+class readFromFiles:
+    #Lists read from files
+    try:
+        #if it can open, continue code
+        nuts = list() #list for total nuts
+        with open("nuts.txt") as x: #open nuts.txt and import as list
+            for line in x:
+                nuts.append(line.rstrip('\n')) #strips \n from entry 
+    except IOError:
+        #if file isnt found then end
+        print("The File > nuts.txt < doesn't exist! Please doublecheck and try again.")
+        exit()
+
+    try:
+        prices = list() #list for all prices
+        with open("prices.txt") as x: #open prices.txt and import as list
+            for line in x:
+                prices.append(line.rstrip('\n')) #strips \n from entry 
+    except IOError:
+        #if file isnt found then end
+        print("The File > prices.txt < doesn't exist! Please doublecheck and try again.")
+        exit()
+
+#Call variables from classes
+newReader = readFromFiles
 #List of random names
 names = ["Jack", "Rachel", "Michelle", "Aaron", "Samuel", "An", "Julie", "Jerry", "Jace", "Sofia"]
-# list of nuts names
-nuts_names = ["Peanuts","Pistachios", "Macadamia", "Almonds", "Cashews", "Walnuts", "Pecans", "Hazelnuts", 
-              "Brazil Nuts", "Pine Nuts", "Chestnuts", "Mixed Nuts"]
-# list of nuts prices
-nuts_prices = [8.00, 8.00, 8.00, 9.50, 9.50, 9.50, 9.50, 15.00, 
-               15.00, 15.00, 15.50, 19.00]
 #list to store ordered nutss
 order_list = []
 #list to store nuts prices
 order_cost = []
 #Customer details dictionary
 customer_details = {}
-
-# validates inputs to check if they are blank
-def not_blank(question):
-    valid =  False
-    while not valid: 
-        response = input (question)
-        if response != "": 
-            return response.title()
-        else:
-            print("This cannot be blank.")
-
-# validates inputs to check if they are string
-def valid_string(question):
-    #Asks a question and makes sure that the answer is alphabetical. Returns the string.
-    while True:
-        response = input(question)
-        x = response.isalpha()
-        if x == False:
-            print("Input must only contain letters.")
-        else:
-            return response.title()
-
-# validates inputs to check if they are an integer
-def val_int(low, high, question):
-    while True:
-        try:
-            num = int(input(question))
-            if num >= low and num <= high:
-                return num
-            else:
-                print(f"Please enter a number between {low} and {high}")
-        except ValueError:
-            print("That is not a valid number.")
-            print(f"Please enter a number between {low} and {high}")
-
-# validates inputs to check if it is an appropriate phone number
-def valid_phone(question, PH_LOW, PH_HIGH):
-    while True:
-        try:
-            num = int(input(question))
-            test_num = num
-            count = 0
-            while test_num > 0:
-                test_num = test_num//10
-                count = count + 1
-            if count >= PH_LOW and count <= PH_HIGH:
-                return str(num)
-            else: 
-                print("NZ phone numbers have between 7 to 10 digits")
-        except ValueError:
-            print("Please enter a number")
 
 # Welcome message with random name
 def welcome():
@@ -89,7 +56,7 @@ def welcome():
     '''
     num = randint(0,9)
     name = (names[num])
-    print("*** Welcome to D's Nuts ***")
+    print("*** Welcome to D's Nuts! ***")
     print("*** My name is {} ***".format(name))
     print("*** I will be here to help you order your delicious organic nuts ***")
 
@@ -138,7 +105,7 @@ def delivery_info():
     print(customer_details["phone"])
 
     question = ("Please enter your house number ")
-    customer_details['house'] = not_blank(question)
+    customer_details['house'] = val_house(question)
     print(customer_details["house"])
 
     question = ("Please enter your street name ")
@@ -150,70 +117,45 @@ def delivery_info():
     print(customer_details["suburb"])
     print(customer_details)
 
-
-
-
-# Nuts Menu
+# Nuts menu
 def menu():
+    # Title
     print("-"*60)
-    print("========= MENU ==========")
+    print("Nuts Options Today:")
     print("-"*60)
-
-    for count in range (len(nuts_names)):
-        print("({}) {} ${:.2f}" .format(count+1, nuts_names[count], nuts_prices[count]))
-    
+    # Menu
+    for x in range(0,len(newReader.nuts)):
+        print("({}) {} - ${:.2f}".format(x+1,newReader.nuts[x],float(newReader.prices[x])))
     print("-"*60)
-
-
 
 
 # Choose total number of items - max 12
 # Nuts order - from menu - print each nut ordered with cast
-
 def order_nuts():
-    # ask for total number of nuts
-    num_nuts = 0
-    LOW = 1
-    HIGH = 12
-    MENU_LOW = 1
-    MENU_HIGH = 12
-    question = (f"Enter a number between {LOW} and {HIGH} ")
-    print("How many nuts do you want to orer?")
-    num_nuts = val_int(LOW, HIGH, question)
-    # Choose nuts from menu
-    for item in range(num_nuts):
-        while num_nuts > 0:
-            print("Please choose your nuts by" 
-                  " entering the number from the menu ")
-            question = (f"Enter a number between {MENU_LOW} and {MENU_HIGH} ")
-            nuts_ordered = val_int(MENU_LOW, MENU_HIGH, question)
-            nuts_ordered = nuts_ordered-1
-            order_list.append(nuts_names[nuts_ordered])
-            order_cost.append(nuts_prices[nuts_ordered])
-            print("{} ${:.2f}" .format(nuts_names[nuts_ordered],
-                   nuts_prices[nuts_ordered]))
-            num_nuts = num_nuts-1
-
+    num_nuts = val_int(1,12,"How many nuts would you like (1-12)? ")
+    print("Please select {} nut(s).".format(num_nuts))
+    for x in range(0,num_nuts): 
+        nuts_ordered = val_int(0,(len(newReader.nuts)-1),("Please select nut {}: ".format(x+1)))
+        print("Added {} (${:.2f}) to your order.".format(newReader.nuts[num_nuts], float(newReader.prices[x])))
+        order_list.append(newReader.nuts[nuts_ordered])
+        order_cost.append(float(newReader.prices[nuts_ordered]))
 
 # Print order out - including if the order is delivery or click and collect and names 
 # and price of each nut - total cost including any delivery charge
 def print_order(del_collect):
-    print()
-    
     print("-"*60)
     print("Customer Details:")
     print("-"*60)
     if del_collect == "Click and Collect":
         print("Your order is for Click and Collect")
+        print("You will recieve a text message when your nuts are ready to be picked up.")
         print(f"Customer Name: {customer_details['name']} \nCustomer Phone: {customer_details['phone']}")
         print("-"*60)
     elif del_collect == "Delivery":
-
         # Handle delivery
         if len(order_list) < 5:
             print("An extra $9.00 will be added for delivery.")
             order_cost.append(9)
-
         print("Your order is for Delivery")
         print(f"Customer Name: {customer_details['name']}"
         f"\nCustomer Phone: {customer_details['phone']}"
@@ -223,21 +165,18 @@ def print_order(del_collect):
     print("-"*60)
     count = 0
     for item in order_list:
-        print("Ordered: {} Cost ${:.2f}".format(item, order_cost[count]))
+        print("Ordered: {} Cost ${:.2f}".format(item,float(order_cost[count])))
         count = count+1
     print()
-
     # Calc Total Cost
     total_cost = sum(order_cost)
     # Print Total Cost
-    print("Total Order Cost")
-    print(f"${total_cost:.2f}")
+    print("Total Cost: ${:.2f}".format(total_cost,2))
+    print("-"*60)
 
 
 # Ability to cancel or proceed with order
 def confirm_cancel():
-    LOW = 1
-    HIGH = 2
     question = (f"Enter a number between {LOW} and {HIGH} ")
     print("-"*60)
     print ("Please confirm your order - Choose: ")
@@ -250,7 +189,7 @@ def confirm_cancel():
         print("-"*60)
         print("Order Confirmed")
         print("Your order is getting picked and packed.")
-        print("Your delicious nuts will be with you shortly.")
+        print("Your delicious nuts will be with you shortly.")  
         print("-"*60)
         new_exit()
     elif confirm == 2:
@@ -260,13 +199,8 @@ def confirm_cancel():
         print("You can restart your order or exit the BOT")
         new_exit()
 
-print("")
-
-
 # Option for new order or to exit
 def new_exit():
-    LOW = 1
-    HIGH = 2
     question = (f"Enter a number between {LOW} and {HIGH} ")
     print ("Do you want to start another order or exit? Choose: ")
     print("(1) To start another order")
@@ -301,6 +235,5 @@ def main():
     print_order(del_collect)
     confirm_cancel()
     new_exit()
-
 
 main()
