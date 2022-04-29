@@ -44,10 +44,10 @@ def val_house(question):
         try:
             userInput = int(input(question)) # asks for input(integer)      
         except ValueError: # if user input is invalid, prints error message
-            print("Not an integer! Please enter a number.")
+            print("That is not a valid number. Please enter input again.")
             continue
         else:
-            return userInput  # reutrns response 
+            return userInput  # returns response 
 
 
 # validates inputs to check if it is an appropriate phone number
