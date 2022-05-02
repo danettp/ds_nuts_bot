@@ -36,7 +36,7 @@ def val_int(low, high, question):
             num = int(input(question))  # asks for input(integer)
             # only accept if number is between/equal low and high
             if num >= low and num <= high:
-                return num
+                return num  # returns response
             else:
                 print(f"Please enter a number between {low} and {high}")
         except ValueError:  # if input is invalid print error message
@@ -71,7 +71,7 @@ def valid_phone(question):
                 count = count + 1
             # only accept if phone number has 7 to 10 digits
             if count >= 7 and count <= 10:
-                return str(num)
+                return str(num)  # returns response
             # if number is <7 digits or 10> digits, prints error message
             else:
                 print("NZ phone numbers have between 7 to 10 digits")

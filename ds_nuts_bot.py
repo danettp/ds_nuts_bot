@@ -1,4 +1,4 @@
-# D's Nuts Bot program
+# D's Nuts Bot
 
 # Libraries
 import sys
@@ -39,8 +39,8 @@ class readFromFiles:
 # Call variables from classes
 newReader = readFromFiles
 # List of random names
-names = ["Jack", "Rachel", "Michelle", "Aaron",
-         "Samuel", "An", "Julie", "Terry", "Jace", "Sofia"]
+names = ["Steve", "Rachel", "Michelle", "Aaron",
+         "Ben", "An", "Julie", "Terry", "Daniel", "Sofia"]
 # list to store ordered nutss
 order_list = []
 # list to store nuts prices
@@ -70,7 +70,7 @@ def welcome():
 def order_type():
     del_collect = ""  # sets del_collect default to blank string
     # asks for input(int) - between LOW and HIGH
-    question = (f"Enter a number between {LOW} and {HIGH} ")
+    question = (f"Enter a number between {LOW} and {HIGH}: ")
     print ("Is your order for click and collect or delivery?")
     print("(1) Click and Collect")
     print("(2) Delivery")
@@ -199,11 +199,12 @@ def print_order(del_collect):
         print("Ordered: {} Cost ${:.2f}".format
               (item, float(order_cost[count])))
         count = count+1
-    print()  # print empty line/space
+    print()
     # Calculate Total Cost
     total_cost = sum(order_cost)  # takes order_cost as parameter
     # Print Total Cost (formatted)
     print("Total Cost: ${:.2f}".format(total_cost, 2))
+
 
 # Ability to cancel or proceed with order
 def confirm_cancel():
@@ -220,7 +221,7 @@ def confirm_cancel():
         print("-"*60)
         print("Order Confirmed")
         print("Your order is getting picked and packed.")
-        print("Your delicious nuts will be with you shortly.")
+        print("Your delicious nuts will be with you soon.")
         print("-"*60)
         new_exit()  # calls new_exit() function
     elif confirm == 2:  # if order is cancelled (2) prints order cancelled
